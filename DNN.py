@@ -45,10 +45,12 @@ if __name__ == '__main__':
     feature = torch.cat([train_feature,test_feature],dim=0)
     label = torch.cat([train_labels,test_labels],dim=0)
 
-    train_feature = feature[:-10]
-    train_labels  = label[:-10]
-    test_feature = feature[-10:]
-    test_labels = label[-10:]
+    test_num = 10
+
+    train_feature = feature[:-test_num]
+    train_labels  = label[:-test_num]
+    test_feature = feature[-test_num:]
+    test_labels = label[-test_num:]
 
     acc_best = 0
     for epoch in range(epochs):
@@ -75,7 +77,7 @@ if __name__ == '__main__':
             loss = loss_func(x_test, target)
 
             if acc > acc_best:
-                torch.save(DNN.state_dict(),'./model.pickle')
+                # torch.save(DNN.state_dict(),'./model.pickle') 
                 acc_best = acc
         
 
